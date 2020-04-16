@@ -161,27 +161,12 @@ class MapDirectionsRenderer extends Component {
             />
             ))}
 
-        {this.props.isInfoboxVisible && (
-          <InfoWindow
-            position={{
-              lat: this.props.markerLat,
-              lng: this.props.markerLng
-            }}
-          >
-            <div id="infobox">
-              <InfoBox
-                stationInfo={this.props.station}
-                closeInfoBox={() => this.props.handleInfoboxClick()}
-              />
-            </div>
-          </InfoWindow>
-        )}
 
         <div className={"results"}>
           <h2>Details</h2>
           <p>
             <span className="label">{"Total Distance:  "} </span>{" "}
-            {this.state.distance} KM
+            {Math.round((this.state.distance * 0.621371) * 10) / 10} miles
           </p>
           <p>
             <span className="label">{"Total Duration:  "} </span>{" "}
@@ -203,6 +188,21 @@ class MapDirectionsRenderer extends Component {
           </p> : <p><span className="label">{"Suggested Station:  "} </span>{" "}
             {this.props.suggestedStation[0].AddressInfo.Title}</p>}
         </div>
+        {this.props.isInfoboxVisible && (
+          <InfoWindow
+            position={{
+              lat: this.props.markerLat,
+              lng: this.props.markerLng
+            }}
+          >
+            <div id="infobox">
+              <InfoBox
+                stationInfo={this.props.station}
+                closeInfoBox={() => this.props.handleInfoboxClick()}
+              />
+            </div>
+          </InfoWindow>
+        )}
       </div>
     );
   }

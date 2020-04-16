@@ -236,7 +236,7 @@ h4.ui.header {
 h1 {
   position: absolute;
   top: 14%;
-  color: aqua;
+  color: 6cffff;
   left: 15px;
 }
 
@@ -274,5 +274,44 @@ h1 {
 
 .rv-xy-plot {
   margin: auto;
-  top: 130px;
+  top: 180px;
+}
+
+.options {
+  width: 50%;
+  height: 80px;
+  background: rgb(46, 46, 46);
+  position: absolute;
+  left: 25%;
+  border-style: double;
+  border-color: #6cffff;
+  border-top: none;
+  text-align: center;
+  padding-top: 2%;
+}
+
+#boptions {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.rv-xy-plot__inner {
+  overflow: overlay !important;
+}
+
+rect {
+  stroke: #6cffff !important;
+  fill: #000000 !important;
+}
+
+.charttitle {
+  position: absolute;
+  color: #6cffff;
+  top: 13%;
+  left: 35%;
+}
+
+.rv-xy-plot__axis__title text {
+  fill: #6cffff !important;
+  font-size: 15px !important;
 }

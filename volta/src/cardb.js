@@ -12,7 +12,7 @@ const carlist = [
     body: "Hatchback",
     fastchargemins: 28,
     standardcharge: 465,
-    price: "25,550"
+    price: 25550
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const carlist = [
     body: "Saloon",
     fastchargemins: 22,
     standardcharge: 465,
-    price: "51,490"
+    price: 51490
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ const carlist = [
     body: "SUV",
     fastchargemins: 36,
     standardcharge: 480,
-    price: "22,495"
+    price: 22495
   },
   {
     id: 4,
@@ -57,7 +57,7 @@ const carlist = [
     body: "SUV",
     fastchargemins: 44,
     standardcharge: 630,
-    price: "34,995"
+    price: 34995
   },
   {
     id: 5,
@@ -72,7 +72,7 @@ const carlist = [
     body: "SUV",
     fastchargemins: 26,
     standardcharge: 420,
-    price: "59,900"
+    price: 59900
   },
   {
     id: 6,
@@ -87,7 +87,7 @@ const carlist = [
     body: "Hatchback",
     fastchargemins: 40,
     standardcharge: 390,
-    price: "26,845"
+    price: 26845
   },
   {
     id: 7,
@@ -102,7 +102,7 @@ const carlist = [
     body: "Hatchback",
     fastchargemins: 36,
     standardcharge: 315,
-    price: "28,075"
+    price: 28075
   },
   {
     id: 8,
@@ -117,7 +117,7 @@ const carlist = [
     body: "SUV",
     fastchargemins: 44,
     standardcharge: 420,
-    price: "35,600"
+    price: 35600
   },
   {
     id: 9,
@@ -132,7 +132,7 @@ const carlist = [
     body: "Hatchback",
     fastchargemins: 28,
     standardcharge: 195,
-    price: "24,900"
+    price: 24900
   },
   {
     id: 10,
@@ -147,7 +147,7 @@ const carlist = [
     body: "SUV",
     fastchargemins: 44,
     standardcharge: 810,
-    price: "64,495"
+    price: 64495
   }
 ];
 

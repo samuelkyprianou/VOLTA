@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import RoutePlanner from "./components/RoutePlanner";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
+import Chart from "./components/Chart";
 
 class App extends Component {
 
@@ -20,6 +21,7 @@ class App extends Component {
         <NavBar />
         <Route exact path="/" render={() => <Home />} />
         <Route exact path="/RoutePlanner" component={() => <RoutePlanner />} />
+        <Route exact path="/Statistics" component={() => <Chart />} />
       </div>
     );
   }

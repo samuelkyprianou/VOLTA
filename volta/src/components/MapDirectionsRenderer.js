@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { DirectionsRenderer } from "react-google-maps";
+import { DirectionsRenderer, Marker, InfoWindow } from "react-google-maps";
 import { connect } from "react-redux";
 import equal from "fast-deep-equal";
 import API from "./API";
+import InfoBox from "./InfoBox";
+import icon from "../assets/markericon.png"
 
 class MapDirectionsRenderer extends Component {
   state = {
@@ -12,7 +14,7 @@ class MapDirectionsRenderer extends Component {
     duration: null,
     start_address: "",
     end_address: "",
-    station_address: "Please Select a Station"
+    resultMarkers: []
   };
 
   componentDidMount() {
@@ -23,14 +25,19 @@ class MapDirectionsRenderer extends Component {
         origin: from,
         destination: to,
         travelMode: "DRIVING",
-        waypoints: waypoints
+        waypoints: waypoints,
+        unitSystem: window.google.maps.UnitSystem.IMPERIAL
       },
       (result, status) => {
         console.log(result);
         if (status === window.google.maps.DirectionsStatus.OK) {
           console.log(result);
           let polyline = result.routes[0].overview_polyline;
-          this.setMarkers(polyline);
+          console.log(result.routes[0].legs[0].start_location)
+          // let destinationMarker = new window.google.maps.Geocoder({"placeId": result.geocoded_waypoints[result.geocoded_waypoints.length - 1].place_id})
+          if (!this.props.waypoints.length) {
+            this.setMarkers(polyline);
+          }
           this.totalDistance(result);
           this.totalDuration(result);
           this.locations(result);
@@ -44,8 +51,7 @@ class MapDirectionsRenderer extends Component {
     );
   }
   componentDidUpdate(prevProps) {
-    if (!equal(this.props, prevProps)) {
-      // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+    if (!equal(this.props.waypoints, prevProps.waypoints)) {
       this.componentDidMount();
     }
   }
@@ -67,7 +73,7 @@ class MapDirectionsRenderer extends Component {
     let totalDist = distanceArr.reduce((total, amount) => {
       return total + amount;
     });
-    let distinKM = Math.round((totalDist / 1000) * 10) / 10;
+    let distinKM = Math.round(totalDist / 1000);
     this.setState({
       distance: distinKM
     });
@@ -104,14 +110,73 @@ class MapDirectionsRenderer extends Component {
     }
   };
 
+  // lastStation = results => {
+  //   let distanceArr = results.routes[0].legs.map(leg => leg.distance.value);
+  //   let totalDist = distanceArr.reduce((total, amount) => {
+  //     return total + amount;
+  //   });
+  //   let distinKM = Math.round(totalDist / 1000);
+  //   let rangeKM = Math.round(this.props.range / 0.621372);
+  //   let stationDistance = this.props.range - 2;
+  //   if (rangeKM < distinKM && stationDistance > 0) {
+  //   let latlng = polyline.decode(results.routes[0].overview_polyline);
+  //   let line = turf.lineString(latlng);
+  //   let options = { units: "miles" };
+  //   let along = turf.along(line, stationDistance, options);
+  //   API.searchSuggested(along.geometry.coordinates[0], along.geometry.coordinates[1]).then(station => {
+  //     console.log(station[0])
+  //     let location = new window.google.maps.LatLng(
+  //       station[0].AddressInfo.Latitude,
+  //       station[0].AddressInfo.Longitude
+  //     );
+  //     let waypoint = { location: location, stopover: true };
+  //       this.props.setSuggestedStation(station, waypoint)
+  //   })
+  //   }
+
+  // };
+
   render() {
     if (this.state.error) {
       return <h1>{this.state.error}</h1>;
     }
-
+    
+    console.log(this.state.directions)
     return (
       <div>
-        <DirectionsRenderer directions={this.state.directions} />
+      <DirectionsRenderer directions={this.state.directions} options={{suppressMarkers: true}} 
+      />
+
+    {this.state.directions && [<Marker position={ this.state.directions.routes[0].legs[0].start_location }/>,
+    <Marker position={ this.state.directions.routes[0].legs[this.state.directions.routes[0].legs.length - 1].end_location }/>] }   
+        {this.props.markers &&
+          this.props.mVisible && 
+          this.props.markers.map(marker => (
+            <Marker
+            key={marker.id}
+            position={{ lat: marker.lat, lng: marker.lng }}
+            onClick={() => this.props.handleMarkerClick(marker)}
+            animation={window.google.maps.Animation.DROP}
+            icon={{url: icon, scaledSize: new window.google.maps.Size(25,45)}}
+            />
+            ))}
+
+        {this.props.isInfoboxVisible && (
+          <InfoWindow
+            position={{
+              lat: this.props.markerLat,
+              lng: this.props.markerLng
+            }}
+          >
+            <div id="infobox">
+              <InfoBox
+                stationInfo={this.props.station}
+                closeInfoBox={() => this.props.handleInfoboxClick()}
+              />
+            </div>
+          </InfoWindow>
+        )}
+
         <div className={"results"}>
           <h2>Details</h2>
           <p>
@@ -130,12 +195,13 @@ class MapDirectionsRenderer extends Component {
             <span className="label">{"Destination:  "} </span>{" "}
             {this.state.end_address}{" "}
           </p>
-          <p>
-            <span className="label">{"Station:  "} </span>{" "}
+          {!this.props.suggestedStation.length ? <p>
+           <span className="label">{"Station:  "} </span>{" "}
             {this.props.selectedstations.length
               ? this.props.selectedstations[0].AddressInfo.Title
               : "Please Add a Station"}{" "}
-          </p>
+          </p> : <p><span className="label">{"Suggested Station:  "} </span>{" "}
+            {this.props.suggestedStation[0].AddressInfo.Title}</p>}
         </div>
       </div>
     );
@@ -147,7 +213,10 @@ const mapStateToProps = state => {
     from: state.from,
     to: state.to,
     waypoints: state.waypoints,
-    selectedstations: state.selectedStations
+    selectedstations: state.selectedStations,
+    markers: state.markers,
+    mVisible: state.mVisible,
+    suggestedStation: state.suggestedStation
   };
 };
 

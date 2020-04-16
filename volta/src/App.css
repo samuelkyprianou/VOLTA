@@ -4,20 +4,22 @@
   background: black;
   position: absolute;
   display: block;
-  margin-left: auto;
+  margin-left: 0%;
   margin-right: auto;
 }
 
+
+
 body {
   background: black !important;
-    margin-left: 68px !important;
+  margin-left: 68px !important;
 }
 
 .sidenav---sidenav---_2tBP {
   background: black !important;
   border-style: groove;
- border-left-style: none;
- border-color: #52fefe42;
+  border-left-style: none;
+  border-color: #52fefe42;
 }
 
 .googleform {
@@ -61,32 +63,33 @@ input {
   display: none;
 }
 
-h4.ui.header  {
+h4.ui.header {
   color: #6cffff !important;
 }
 
 .content {
   width: 100%;
 }
-.ui.icon.button, .ui.icon.buttons .button {
-  padding: .78571429em .78571429em .78571429em !important;
+.ui.icon.button,
+.ui.icon.buttons .button {
+  padding: 0.78571429em 0.78571429em 0.78571429em !important;
   float: right;
   background: black;
 }
 
-.ui.block.header  {
+.ui.block.header {
   background: #01ffff !important;
-  padding: .78571429rem .78571429rem .78571429rem !important;
+  padding: 0.78571429rem 0.78571429rem 0.78571429rem !important;
   box-shadow: none !important;
   border: 1px solid #01ffff !important;
-  border-radius: .28571429rem !important;
+  border-radius: 0.28571429rem !important;
 }
 
 .ui.circular.button:hover {
   background-color: yellow;
 }
 
-.ui.circular.button>.icon {
+.ui.circular.button > .icon {
   width: 1em;
   vertical-align: baseline;
   color: #01ffff;
@@ -98,12 +101,12 @@ h4.ui.header  {
 
 .markertoggle {
   position: absolute !important;
-    top: 10%;
-    right: 10%;
-    margin-top: -50px;
-    margin-right: -50px;
-    width: 140px;
-    height: 40px;
+  top: 10%;
+  right: 10%;
+  margin-top: -50px;
+  margin-right: -50px;
+  width: 140px;
+  height: 40px;
 }
 
 .results {
@@ -120,10 +123,18 @@ h4.ui.header  {
   color: #6bffff;
 }
 
-
 @keyframes slideInFromLeft {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeftAbout {
+  0% {
+    transform: translateX(-180%);
   }
   100% {
     transform: translateX(0);
@@ -131,36 +142,47 @@ h4.ui.header  {
 }
 
 @keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-#logo {
-  animation: 5s ease-in 2s 1 slideInFromLeft;
+.hometitle {
+  animation: 4s ease 0s 1 slideInFromLeft;
   position: absolute !important;
-  top: 30%;
-  left: 10%;
+  top: 20%;
+  left: 3%;
   /* margin-top: -50px;
   margin-right: -70px; */
-  width: 20%;
-  height: 40%;
-  background: #08314b00;
-  color: #6bffff;
+  width: 45%;
+  height: 20%;
 }
 
-.olta {
-  animation: fadein ease 5s;
+.about {
+  animation: 4s ease 0s 1 slideInFromLeftAbout;
   position: absolute !important;
-  top: 4%;
-  left: 45.2%;
-  width: 10%;
+  top: 53%;
+  left: 13%;
+  /* margin-top: -50px;
+  margin-right: -70px; */
+  width: 40%;
+  height: 10%;
+}
+
+.particles {
+  animation-name: fadein;
+  animation-duration: 5s; 
+  left: 20%;
+  position: relative;
 }
 
 
-
-  .awssld {
-    border: double;
-    background: rgba(0, 0, 0, 0.644);
+.awssld {
+  border: double;
+  background: rgba(0, 0, 0, 0.644);
   height: 500px;
   position: absolute !important;
   top: 50%;
@@ -168,46 +190,46 @@ h4.ui.header  {
   right: 0;
   -webkit-transform: translateY(-50%);
   --organic-arrow-thickness: 4px !important;
-    --organic-arrow-height: 40px!important;
-    --slider-height-percentage: 60%!important;
-    --loader-bar-color: #6cffff!important;
-    --loader-bar-height: 6px!important;
-    --control-button-width: 10%!important;
-    --control-button-height: 25%!important;
-    --control-button-opacity: 1!important;
-    --control-button-hover-opacity: 1!important;
-    --control-button-background: transparent!important;
-    --transition-bezier: cubic-bezier(0.5, 0.075, 0.25, 0.95)!important;
-    --slider-transition-duration: 575ms!important;
-    --organic-arrow-color: #6cffff!important;
-    --organic-arrow-border-radius: 0!important;
-    --control-bullet-color: #6bffff !important;
-    --control-bullet-active-color: #ffffff!important;
-    --content-background-color: #ffffff6b!important;
+  --organic-arrow-height: 40px !important;
+  --slider-height-percentage: 60% !important;
+  --loader-bar-color: #6cffff !important;
+  --loader-bar-height: 6px !important;
+  --control-button-width: 10% !important;
+  --control-button-height: 25% !important;
+  --control-button-opacity: 1 !important;
+  --control-button-hover-opacity: 1 !important;
+  --control-button-background: transparent !important;
+  --transition-bezier: cubic-bezier(0.5, 0.075, 0.25, 0.95) !important;
+  --slider-transition-duration: 575ms !important;
+  --organic-arrow-color: #6cffff !important;
+  --organic-arrow-border-radius: 0 !important;
+  --control-bullet-color: #6bffff !important;
+  --control-bullet-active-color: #ffffff !important;
+  --content-background-color: #ffffff6b !important;
 }
 
 .awssld__content > img {
-      width: 50% !important;
-      height: 70% !important;
-      position: absolute !important;
-      object-fit: fill !important;
-      top: auto !important;
-      left: auto !important;
+  width: 50% !important;
+  height: 70% !important;
+  position: absolute !important;
+  object-fit: fill !important;
+  top: auto !important;
+  left: auto !important;
 }
 
 .carData {
   position: absolute;
-    text-align: center;
-    bottom: 5%;
+  text-align: center;
+  bottom: 5%;
 }
 
 #cartitle {
-font-size: xx-large;
-color: #6cffff;
-margin-bottom: 10px;
+  font-size: xx-large;
+  color: #6cffff;
+  margin-bottom: 10px;
 }
 
-#carinfo{
+#carinfo {
   color: rgb(0, 0, 0);
 }
 
@@ -215,25 +237,24 @@ h1 {
   position: absolute;
   top: 14%;
   color: aqua;
-  left: 10px;
+  left: 15px;
 }
-    
-.ui.teal.circular.inverted.button{
+
+.ui.teal.circular.inverted.button {
   position: relative;
-    top: 18%;
-    
+  top: 18%;
 }
 
-.carselector {    
-position: absolute;
-width: 1372px;
-height: 100%;
-top: 0px;
-text-align: center;
-background-color: rgba(0, 0, 0, 0.623);
+.carselector {
+  position: absolute;
+  width: 1372px;
+  height: 100%;
+  top: 0px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.623);
 }
 
-.awssld.awssld--organic-arrows{
+.awssld.awssld--organic-arrows {
   border-style: double;
   border-top-color: #6bffff;
   border-bottom-color: #6bffff;
@@ -251,3 +272,7 @@ background-color: rgba(0, 0, 0, 0.623);
   color: #6bffff;
 }
 
+.rv-xy-plot {
+  margin: auto;
+  top: 130px;
+}

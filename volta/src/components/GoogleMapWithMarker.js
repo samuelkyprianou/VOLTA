@@ -3,62 +3,45 @@ import { connect } from "react-redux";
 import {
   withScriptjs,
   withGoogleMap,
-  GoogleMap,
-  Marker,
-  InfoWindow
+  GoogleMap
+
 } from "react-google-maps";
 import MapDirectionsRenderer from "./MapDirectionsRenderer";
-import InfoBox from "./InfoBox"
+
 import GoogleForm from "./GoogleForm";
 const styles = require("./GoogleMapStyles.json");
-
 
 const GoogleMapComponentWithMarker = withScriptjs(
   withGoogleMap(props => (
     <div>
-         <GoogleForm />
-    <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{
-        lat: props.location.latitude, // latitude for the center of the map
-        lng: props.location.longitude // longitude for the center of the map
-      }}
-      defaultOptions={{
-        disableDefaultUI: true, // disable default map UI
-        draggable: true, // make map draggable
-        keyboardShortcuts: false, // disable keyboard shortcuts
-        scaleControl: true, // allow scale controle
-        scrollwheel: true, // allow scroll wheel
-        styles: styles // change default map styles
-      }}
-    >
-      {props.markers && props.mVisible &&
-        props.markers.map(marker => (
-          <Marker
-            key={marker.id}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            onClick={() => props.handleMarkerClick(marker)}
-            animation={window.google.maps.Animation.DROP}
+      <GoogleForm />
+      <GoogleMap
+        defaultZoom={13}
+        defaultCenter={{
+          lat: props.location.latitude, // latitude for the center of the map
+          lng: props.location.longitude // longitude for the center of the map
+        }}
+        defaultOptions={{
+          disableDefaultUI: true, // disable default map UI
+          draggable: true, // make map draggable
+          keyboardShortcuts: false, // disable keyboard shortcuts
+          scaleControl: true, // allow scale controle
+          scrollwheel: true, // allow scroll wheel
+          styles: styles // change default map styles
+        }}
+      >
+
+        {props.from && (
+          <MapDirectionsRenderer
+            isInfoboxVisible={props.isInfoboxVisible} // Show/hide info window
+            station={props.station} // Message shown in info window
+            handleInfoboxClick={props.handleInfoboxClick} // Handle closing of the info window
+            handleMarkerClick={props.handleMarkerClick} // Handle click on Marker component
+            markerLat={props.markerLat} // Y coordinate for positioning info window
+            markerLng={props.markerLng}
           />
-        ))}
-
-      {props.isInfoboxVisible && (
-        <InfoWindow
-          position={{
-            lat: props.markerLat,
-            lng: props.markerLng
-          }}
-          // onCloseClick={() => props.handleInfoboxClick()}
-        >
-          <div id="infobox">
-          <InfoBox stationInfo={props.station} closeInfoBox={() => props.handleInfoboxClick()} />
-          </div>
-        </InfoWindow>
-      )}
-
-
-      {props.from && <MapDirectionsRenderer />}
-    </GoogleMap>
+        )}
+      </GoogleMap>
     </div>
   ))
 );
@@ -66,9 +49,7 @@ const GoogleMapComponentWithMarker = withScriptjs(
 const mapStateToProps = state => {
   return {
     location: state.currentLocation,
-    from: state.from,
-    markers: state.markers,
-    mVisible: state.mVisible
+    from: state.from
   };
 };
 

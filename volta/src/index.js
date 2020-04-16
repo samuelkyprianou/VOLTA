@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "semantic-ui-css/semantic.min.css";
 import 'react-awesome-slider/src/core/styles.scss';
 import 'react-input-range/lib/css/index.css'
+import "../node_modules/react-vis/dist/style.css";
 require("dotenv").config();
 
 

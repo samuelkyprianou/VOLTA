@@ -44,9 +44,11 @@ export default class NavBar extends Component {
             </NavItem>
             <NavItem eventKey="Statistics">
               <NavIcon>
+              <Link to="/Statistics">
                 <Icon name="pie chart" color="blue" />
+                </Link>
               </NavIcon>
-              <NavText>Statistics</NavText>
+              <NavText><Link to="/Statistics">Statistics</Link></NavText>
             </NavItem>
           </SideNav.Nav>
         </SideNav>

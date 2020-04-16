@@ -13,7 +13,9 @@ const initialState = {
     mVisible: true,
     selectedStations: [],
     selectedCar: {},
-    showSelectCar: true
+    showSelectCar: true,
+    range: "",
+    suggestedStation: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,13 +28,31 @@ const reducer = (state = initialState, action) => {
       }
     };
   }
+  else if (action.type === "SUGGESTED_SEARCH_TERMS") {
+    console.log(action.payload.results)
+    return {
+      ...state,
+      from: action.payload.results.from,
+      to: action.payload.results.to,
+      waypoints: [action.payload.results.waypoint],
+      selectedStations: [],
+      stations: action.payload.results.suggestedStation,
+      range: action.payload.results.range,
+      markers: action.payload.results.marker,
+      suggestedStation: action.payload.results.suggestedStation
+      
+    }
+  }
   else if (action.type === "SEARCH_TERMS") {
+    console.log(action.payload.results)
     return {
       ...state,
       from: action.payload.results.from,
       to: action.payload.results.to,
       waypoints: [],
-      selectedStations: []
+      range: action.payload.results.range,
+      mVisible: true,
+      suggestedStation: []
     }
   }
   else if (action.type === "STATIONS") {

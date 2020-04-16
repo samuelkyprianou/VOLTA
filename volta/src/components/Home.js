@@ -1,7 +1,8 @@
 import React from "react";
 import Particles from "react-particles-js";
 import car from "../assets/paths.svg";
-import logo from "../assets/Logo.png";
+import title from "../assets/hometitle.png";
+import about from "../assets/about.png";
 
 const particles = {
   fps_limit: 28,
@@ -70,8 +71,8 @@ const Home = () => {
   return (
     <div id="particles">
       <Particles className="particles" params={particles} />
-      <div id="logo">Welcome to <span className="Volta">VOLTA</span></div>
-      <img src={logo} alt="logo" className="olta"></img>
+      <img src={title} alt="hometitle" className="hometitle"></img>
+      <img src={about} alt="about" className="about"></img>
       </div>
   );
 };

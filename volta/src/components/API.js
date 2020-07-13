@@ -15,7 +15,7 @@ const searchSuggested = (lat, lng) => {
   
 const searchWaypoints = (polyline) => {
     return fetch(
-        `https://api.openchargemap.io/v3/poi/?output=json&polyline=${polyline}&distance=2&verbose=false`
+        `https://api.openchargemap.io/v3/poi/?output=json&polyline=${polyline}&distance=3&verbose=false`
 ,
       {
         method: "GET",

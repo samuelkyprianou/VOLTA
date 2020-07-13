@@ -25,29 +25,29 @@ class GoogleForm extends Component {
       },
       result => {
         let distanceArr = result.routes[0].legs.map(leg => leg.distance.value);
-        let totalDist = distanceArr.reduce((total, amount) => {
+        let totalDist = distanceArr.reduce((total, amount) => {               //Calculating total distance of journey
           return total + amount;
         });
         let distinKM = Math.round(totalDist / 1000);
-        let rangeKM = Math.round(range / 0.621372);
+        let rangeKM = Math.round(range / 0.621372);                            //Calculating range with current battery life
         let stationDistance = range - 2;
-        if (rangeKM < distinKM && stationDistance > 0) {
-          let latlng = polyline.decode(result.routes[0].overview_polyline);
+        if (rangeKM < distinKM && stationDistance > 0) {                       //IF statement, check enough battery for journey?
+          let latlng = polyline.decode(result.routes[0].overview_polyline);    //Decode Polyline
           let line = turf.lineString(latlng);
           let options = { units: "miles" };
-          let along = turf.along(line, stationDistance, options);
-          API.searchSuggested(
+          let along = turf.along(line, stationDistance, options);             //Finding optimal charging station distance
+          API.searchSuggested(                                                //Fetching station info
             along.geometry.coordinates[0],
             along.geometry.coordinates[1]
-          ).then(station => {
+          ).then(station => { 
             console.log(station[0]);
             let location = new window.google.maps.LatLng(
               station[0].AddressInfo.Latitude,
               station[0].AddressInfo.Longitude
             );
             console.log(location);
-            let waypoint = { location: location, stopover: true };
-            let marker = [{
+            let waypoint = { location: location, stopover: true };            //Creating waypoint obj
+            let marker = [{                                                   //Creating marker obj
               id: station[0].ID,
               lat: station[0].AddressInfo.Latitude,
               lng: station[0].AddressInfo.Longitude

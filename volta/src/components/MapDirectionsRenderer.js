@@ -18,6 +18,7 @@ class MapDirectionsRenderer extends Component {
   };
 
   componentDidMount() {
+    console.log("mounted")
     let { from, to, waypoints } = this.props;
     const directionsService = new window.google.maps.DirectionsService();
     directionsService.route(
@@ -34,7 +35,6 @@ class MapDirectionsRenderer extends Component {
           console.log(result);
           let polyline = result.routes[0].overview_polyline;
           console.log(result.routes[0].legs[0].start_location)
-          // let destinationMarker = new window.google.maps.Geocoder({"placeId": result.geocoded_waypoints[result.geocoded_waypoints.length - 1].place_id})
           if (!this.props.waypoints.length) {
             this.setMarkers(polyline);
           }
@@ -51,7 +51,7 @@ class MapDirectionsRenderer extends Component {
     );
   }
   componentDidUpdate(prevProps) {
-    if (!equal(this.props.waypoints, prevProps.waypoints)) {
+    if (!equal(this.props.waypoints, prevProps.waypoints) || !equal(this.props.from, prevProps.from) || !equal(this.props.to, prevProps.to) ) {
       this.componentDidMount();
     }
   }
@@ -109,32 +109,6 @@ class MapDirectionsRenderer extends Component {
       });
     }
   };
-
-  // lastStation = results => {
-  //   let distanceArr = results.routes[0].legs.map(leg => leg.distance.value);
-  //   let totalDist = distanceArr.reduce((total, amount) => {
-  //     return total + amount;
-  //   });
-  //   let distinKM = Math.round(totalDist / 1000);
-  //   let rangeKM = Math.round(this.props.range / 0.621372);
-  //   let stationDistance = this.props.range - 2;
-  //   if (rangeKM < distinKM && stationDistance > 0) {
-  //   let latlng = polyline.decode(results.routes[0].overview_polyline);
-  //   let line = turf.lineString(latlng);
-  //   let options = { units: "miles" };
-  //   let along = turf.along(line, stationDistance, options);
-  //   API.searchSuggested(along.geometry.coordinates[0], along.geometry.coordinates[1]).then(station => {
-  //     console.log(station[0])
-  //     let location = new window.google.maps.LatLng(
-  //       station[0].AddressInfo.Latitude,
-  //       station[0].AddressInfo.Longitude
-  //     );
-  //     let waypoint = { location: location, stopover: true };
-  //       this.props.setSuggestedStation(station, waypoint)
-  //   })
-  //   }
-
-  // };
 
   render() {
     if (this.state.error) {

@@ -52,7 +52,8 @@ const reducer = (state = initialState, action) => {
       waypoints: [],
       range: action.payload.results.range,
       mVisible: true,
-      suggestedStation: []
+      suggestedStation: [],
+      selectedStations: []
     }
   }
   else if (action.type === "STATIONS") {
